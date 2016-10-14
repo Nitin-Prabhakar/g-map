@@ -1,0 +1,78 @@
+<link rel=import href=../bower_components/google-map/google-map.html>
+<link rel=import href=../bower_components/google-map/google-map-marker.html>
+<link rel=import href=../bower_components/google-map/google-map-search.html>
+<link rel=import href=../bower_components/google-map/google-map-directions.html>
+<link rel=import href=../bower_components/iron-input/iron-input.html>
+<link rel=import href=../bower_components/iron-icon/iron-icon.html>
+<link rel=import href=../bower_components/iron-icons/iron-icons.html>
+<link rel=import href=../bower_components/iron-icons/maps-icons.html>
+<dom-module id=g-map>
+    <template id=google-map>
+        <div class=map-container>
+            <google-map-search map="[[map]]" query="[[query]]" results="{{results}}" on-google-map-search-results=cacher>
+            </google-map-search>
+            <google-map api-key=[[apiKey]] map={{map}} on-google-map-ready=_onMapResolve fit-to-markers disable-zoom single-info-window>
+                <template id="resultList" is="dom-repeat" items="[[cache]]">
+                    <!---->
+                    <template is="dom-repeat" items="[[item]]" as="marker">
+                      <!--[[__log(marker)]]-->
+                        <google-map-marker latitude="{{marker.latitude}}" longitude="{{marker.longitude}}">
+                            <h2>{{marker.name}}</h2>
+                            <span>{{marker.formatted_address}}</span>
+                        </google-map-marker>
+                    </template>
+                </template>
+            </google-map>
+            <div class="search_form">
+                <p>
+                    <iron-icon icon=icons:search on-tap=__search></iron-icon>
+                    <input is=iron-input placeholder="Search" type=text name=start bind-value={{searchQuery}}>
+                </p>
+            </div>
+        </div>
+    </template>
+    <script>
+        Polymer({
+            is: "g-map",
+            properties: {
+                apiKey: {
+                    type: String,
+                    value: "AIzaSyBLc_T17p91u6ujSpThe2H3nh_8nG2p6FQ"
+                },
+                map: {
+                    type: Object
+                },
+                query: {
+                    type: String,
+                    value: ""
+                },
+                locations: {
+                    type: Array,
+                    value: []
+                },
+                cache: {
+                    type: Array,
+                    value: []
+                },
+                results: {
+                    type: Array,
+                    value: function() {
+                        return [];
+                    }
+                }
+            },
+            _onMapResolve: function() {
+                var search = document.querySelector("google-map-search");
+                this.locations.forEach(function(location) {
+                    search.query = location;
+                })
+            },
+            __search: function() {
+                this.query = this.searchQuery;
+            },
+            cacher: function() {
+                this.push('cache', this.results);
+            }
+        })
+    </script>
+</dom-module>

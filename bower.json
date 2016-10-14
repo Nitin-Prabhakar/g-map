@@ -1,0 +1,31 @@
+{
+  "name": "google map custom element called g-map",
+  "authors": [
+    "Nitin <pmitwithnitin@gmail.com>"
+  ],
+  "description": "Host a map on your webpage",
+  "main": "index.html",
+  "keywords": [
+    "google",
+    "map",
+    "markers"
+  ],
+  "license": "MIT",
+  "homepage": "polymer-project.nitinprabhakar.com/g-map",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.22",
+    "google-map": "GoogleWebComponents/google-map#^1.1.13",
+    "iron-input": "PolymerElements/iron-input#^1.0.10"
+  },
+  "dependencies": {
+    "iron-icons": "PolymerElements/iron-icons#^1.1.3",
+    "iron-icon": "PolymerElements/iron-icon#^1.0.11"
+  }
+}
